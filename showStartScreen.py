@@ -2,7 +2,6 @@
 
 import pygame, sys, time
 from pygame.locals import *
-from GameofLife import *
 
 FPS = 30
 WINDOWWIDTH = 640
