@@ -1,6 +1,6 @@
 #start screen of Game of Life
 
-import pygame, sys, time
+import pygame, sys, time, random
 from pygame.locals import *
 
 FPS = 30
