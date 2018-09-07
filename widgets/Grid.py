@@ -31,6 +31,7 @@ class Grid:
 		self.sel_color = selected_color
 		self.board_state = None
 		self.pause = False
+		self.random = False
 
 	def handle_event(self, event):
 		if event.type == MOUSEBUTTONDOWN and self.board != None:
@@ -50,10 +51,14 @@ class Grid:
 			self.block_size = scale
 			self.board_state = Grid.filter_board(self.board_state)
 
+	def set_random_state(self):
+		self.random = True
+
 	def draw(self, screen):
 		pygame.draw.rect(screen, (0,0,0), self.rect, 0)
 		est_margin = int(self.block_size/5)
-		self.margin = est_margin if est_margin > 0 else 1
+		#self.margin = est_margin if est_margin > 0 else 1
+		self.margin = est_margin
 		self.h_cells = int(self.rect.width/self.block_size)
 		self.v_cells = int(self.rect.height/self.block_size)
 
@@ -66,7 +71,8 @@ class Grid:
 			self.v_cells-=1
 
 		# pad matrix size to screen
-		self.board_state = Grid.pad(self.board_state, self.h_cells, self.v_cells)
+		self.board_state = Grid.pad(self.board_state, self.h_cells, self.v_cells, self.random)
+		self.random == False
 
 		if self.board_state == None:
 			self.board_state = Grid.dead_state(self.v_cells, self.h_cells)
@@ -200,11 +206,13 @@ class Grid:
 			f.close()
 			return board
 
-	def pad(board, screen_width, screen_height):
+	def pad(board, screen_width, screen_height, isRandom):
 		rRows = screen_height
 		rCols = screen_width
-		if board == None or board == []:
+		if (board == None and not isRandom) or board == []:
 			return Grid.dead_state(rRows, rCols)
+		elif board == None and isRandom:
+			return Grid.random_state(rRows, rCols)
 		nRows = len(board)
 		nCols = len(board[0])
 		

@@ -1,9 +1,9 @@
 #start menu of Game of Life
 
 import pygame, sys, time, random
+sys.path.append('../widgets')
 from pygame.locals import *
 from pygame import gfxdraw
-from GOL import *
 from ListView import ListView
 from Button import Button
 from InputBox import InputBox
@@ -44,7 +44,7 @@ def main():
 	FPSCLOCK = pygame.time.Clock()
 	DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
 	BASICFONT = pygame.font.Font(None ,30)
-	TITLEFONT = pygame.font.Font('ka1.ttf',50)
+	TITLEFONT = pygame.font.Font('../assets/ka1.ttf',50)
 	pygame.display.set_caption('Game of Life')
 
 	initSimulator()
